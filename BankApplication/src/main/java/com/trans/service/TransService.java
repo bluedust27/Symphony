@@ -24,9 +24,10 @@ public class TransService {
     }
 
     public String createAccount(Transaction transaction) {
+        validateDuplicateAccount(transaction);
         User user = userRepository.save(new User(transaction.getAccountUserName(), transaction.getPin()));
         accountRepository.save(new Account(transaction.getAccountNumber(), user ,transaction.getAmount()));
-        return "User Accoun is created with name " + transaction.getAccountUserName() + " and accounNumber " + transaction.getAccountNumber();
+        return "User Account is created with name " + transaction.getAccountUserName() + " and account Number " + transaction.getAccountNumber();
     }
 
     public String withdraw(Transaction transaction) throws RuntimeException {
@@ -70,5 +71,12 @@ public class TransService {
                 return account;
             } else throw new RuntimeException("Invalid user");
         } else throw new RuntimeException("Account does not exist");
+    }
+
+    private void validateDuplicateAccount(Transaction transaction) throws RuntimeException{
+        Optional<Account> accountOptional = accountRepository.findById(transaction.getAccountNumber());
+        if (accountOptional.isPresent()){
+            throw new RuntimeException(("Account already exists"));
+        }
     }
 }
