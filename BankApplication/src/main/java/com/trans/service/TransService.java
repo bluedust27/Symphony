@@ -7,7 +7,13 @@ import com.trans.repository.AccountRepository;
 import com.trans.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +31,26 @@ public class TransService {
 
     public List<Account> getAccounts() {
         return (List<Account>) accountRepository.findAll();
+    }
+
+    public void getAccountsCsv(HttpServletResponse response) throws IOException {
+        response.setContentType("text/csv");
+        String fileName="accounts.csv";
+        String headerKey="Content-Disposition";
+        String headerValue ="attachment;filename="+ fileName;
+
+        response.setHeader(headerKey,headerValue);
+
+        List<Account> accountList= (List<Account>) accountRepository.findAll();
+        ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
+
+        String[] csvHeader = {"accountNumber", "name","pin","amount"};
+        String[] nameMapping = {"accountNumber","name","pin","amount"};
+        csvWriter.writeHeader(csvHeader);
+        for (Account account : accountList){
+            csvWriter.write(account,nameMapping);
+        }
+        csvWriter.close();
     }
 
     public String createAccount(Transaction transaction) {

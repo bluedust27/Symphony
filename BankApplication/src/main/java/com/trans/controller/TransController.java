@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -25,6 +27,11 @@ public class TransController {
     @GetMapping("/accounts")
     public List<Account> getAccounts() {
         return transService.getAccounts();
+    }
+
+    @GetMapping("/accountscsv")
+    public void getAccountsCSV(HttpServletResponse response) throws IOException {
+         transService.getAccountsCsv(response);
     }
 
     @PostMapping("/create")
