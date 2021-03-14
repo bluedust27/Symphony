@@ -31,10 +31,10 @@ public class User {
         this.pin = pin;
     }
 
-    @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "user")
-    private Account account;
+//    @OneToOne(fetch = FetchType.LAZY,
+//            cascade =  CascadeType.ALL,
+//            mappedBy = "user")
+//    private Account account;
 
     public Long getId() {
         return id;

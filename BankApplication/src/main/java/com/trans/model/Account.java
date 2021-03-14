@@ -33,8 +33,12 @@ public class Account {
     @Id
     private Long accountNumber;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id", nullable = false)
+//    @OneToOne(fetch = FetchType.LAZY, optional = false)
+//    @JoinColumn(name = "id", nullable = false)
+//    private User user;
+
+    @OneToOne(targetEntity = User.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id", referencedColumnName = "id",nullable = false)
     private User user;
 
     @Column

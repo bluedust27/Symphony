@@ -1,5 +1,6 @@
 package com.trans.controller;
 
+import com.trans.model.Account;
 import com.trans.model.Transaction;
 import com.trans.model.User;
 import com.trans.service.TransService;
@@ -19,6 +20,11 @@ public class TransController {
     @GetMapping("/users")
     public List<User> getUsers() {
         return transService.getUsers();
+    }
+
+    @GetMapping("/accounts")
+    public List<Account> getAccounts() {
+        return transService.getAccounts();
     }
 
     @PostMapping("/create")

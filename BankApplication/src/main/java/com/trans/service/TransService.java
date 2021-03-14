@@ -23,6 +23,10 @@ public class TransService {
         return (List<User>) userRepository.findAll();
     }
 
+    public List<Account> getAccounts() {
+        return (List<Account>) accountRepository.findAll();
+    }
+
     public String createAccount(Transaction transaction) {
         validateDuplicateAccount(transaction);
         User user = userRepository.save(new User(transaction.getAccountUserName(), transaction.getPin()));
