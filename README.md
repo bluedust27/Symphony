@@ -42,9 +42,9 @@ TBD
 Running load tests against this application using Jmeter.
 ### Set up
 1. Download
- - [Apache JMeter](https://jmeter.apache.org/download_jmeter.cgi)
- - [Grafana](https://grafana.com/grafana/download) (for monitoring only)
- - [InfluxDB](https://portal.influxdata.com/downloads/) (for monitoring only)
+ * [Apache JMeter](https://jmeter.apache.org/download_jmeter.cgi)
+ * [Grafana](https://grafana.com/grafana/download) (for monitoring only)
+ * [InfluxDB](https://portal.influxdata.com/downloads/) (for monitoring only)
 
 2. Set Path for Jmeter in environment variables
 JMETER_HOME: `\apache-jmeter-<version>`
