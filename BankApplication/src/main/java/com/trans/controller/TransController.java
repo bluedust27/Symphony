@@ -1,5 +1,6 @@
 package com.trans.controller;
 
+import com.trans.model.Account;
 import com.trans.model.Transaction;
 import com.trans.model.User;
 import com.trans.service.TransService;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -19,6 +22,16 @@ public class TransController {
     @GetMapping("/users")
     public List<User> getUsers() {
         return transService.getUsers();
+    }
+
+    @GetMapping("/accounts")
+    public List<Account> getAccounts() {
+        return transService.getAccounts();
+    }
+
+    @GetMapping("/accountscsv")
+    public void getAccountsCSV(HttpServletResponse response) throws IOException {
+         transService.getAccountsCsv(response);
     }
 
     @PostMapping("/create")

@@ -1,6 +1,4 @@
 package com.trans.model;
-
-
 import javax.persistence.*;
 
 @Entity
@@ -29,12 +27,18 @@ public class Account {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+    public String getName(){
+        return this.user.getName();
+    }
+    public String getPin(){
+        return this.user.getPin();
+    }
 
     @Id
     private Long accountNumber;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id", nullable = false)
+    @OneToOne(targetEntity = User.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id", referencedColumnName = "id",nullable = false)
     private User user;
 
     @Column

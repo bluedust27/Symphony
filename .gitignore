@@ -23,3 +23,8 @@
 hs_err_pid*
 BankApplication/target/
 BankApplication/.idea/
+jmetertests/Grafana/
+jmetertests/InfluxDB/
+jmetertests/Report/
+jmetertests/win/
+jmetertests/ReadMe.txt

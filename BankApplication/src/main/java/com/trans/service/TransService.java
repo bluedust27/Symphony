@@ -7,7 +7,13 @@ import com.trans.repository.AccountRepository;
 import com.trans.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,10 +29,35 @@ public class TransService {
         return (List<User>) userRepository.findAll();
     }
 
+    public List<Account> getAccounts() {
+        return (List<Account>) accountRepository.findAll();
+    }
+
+    public void getAccountsCsv(HttpServletResponse response) throws IOException {
+        response.setContentType("text/csv");
+        String fileName="accounts.csv";
+        String headerKey="Content-Disposition";
+        String headerValue ="attachment;filename="+ fileName;
+
+        response.setHeader(headerKey,headerValue);
+
+        List<Account> accountList= (List<Account>) accountRepository.findAll();
+        ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
+
+        String[] csvHeader = {"accountNumber", "name","pin","amount"};
+        String[] nameMapping = {"accountNumber","name","pin","amount"};
+        csvWriter.writeHeader(csvHeader);
+        for (Account account : accountList){
+            csvWriter.write(account,nameMapping);
+        }
+        csvWriter.close();
+    }
+
     public String createAccount(Transaction transaction) {
+        validateDuplicateAccount(transaction);
         User user = userRepository.save(new User(transaction.getAccountUserName(), transaction.getPin()));
         accountRepository.save(new Account(transaction.getAccountNumber(), user ,transaction.getAmount()));
-        return "User Accoun is created with name " + transaction.getAccountUserName() + " and accounNumber " + transaction.getAccountNumber();
+        return "User Account is created with name " + transaction.getAccountUserName() + " and account Number " + transaction.getAccountNumber();
     }
 
     public String withdraw(Transaction transaction) throws RuntimeException {
@@ -70,5 +101,12 @@ public class TransService {
                 return account;
             } else throw new RuntimeException("Invalid user");
         } else throw new RuntimeException("Account does not exist");
+    }
+
+    private void validateDuplicateAccount(Transaction transaction) throws RuntimeException{
+        Optional<Account> accountOptional = accountRepository.findById(transaction.getAccountNumber());
+        if (accountOptional.isPresent()){
+            throw new RuntimeException(("Account already exists"));
+        }
     }
 }
