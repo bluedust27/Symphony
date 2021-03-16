@@ -47,9 +47,9 @@ Running load tests against this application using Jmeter.
  * [InfluxDB](https://portal.influxdata.com/downloads/) (for monitoring only)
 
 2. Set Path for Jmeter in environment variables
-JMETER_HOME: `\apache-jmeter-<version>`
-JAVA_HOME:		 `\Java\<jdkversion>`
-Add to PATH:  `%JMETER_HOME%\bin` and `%JAVA_HOME%\bin`
+* JMETER_HOME: `\apache-jmeter-<version>`
+* JAVA_HOME:		 `\Java\<jdkversion>`
+* Add to PATH:  `%JMETER_HOME%\bin` and `%JAVA_HOME%\bin`
 ### Edit the test script
 To edit the script in GUI mode run in powershell - `EditTestInJmeter.ps1`
 ### Configure test parameters
