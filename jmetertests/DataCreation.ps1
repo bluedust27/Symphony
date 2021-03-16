@@ -1,1 +1,1 @@
-jmeter -n -t DataCreation.jmx
+jmeter -p test.properties -n -t DataCreation.jmx
