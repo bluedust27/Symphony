@@ -54,6 +54,8 @@ Add to PATH:  `%JMETER_HOME%\bin` and `%JAVA_HOME%\bin`
 To edit the script in GUI mode run in powershell - `EditTestInJmeter.ps1`
 ### Configure test parameters
 Test parameters can be configured using file - `test.properties`
+### Data creation
+Before starting load test we need to set up initial data. Run `DataCreation.ps1` to create some accounts to begin with.
 ### Run load tests
 To start a load test run in powershell - `StartLoadtest.ps1`
 ### Reports
