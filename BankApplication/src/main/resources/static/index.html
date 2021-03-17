@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+    table, th, td {
+    text-align: center;
+    border: 1px solid black;
+
+    }
+    td {
+    padding: 10px;
+    }
+    thead{
+    font-weight: bold;
+    }
+    </style>
+</head>
+<body>
+<h1>A simple bank application.</h1>
+<table>
+    <thead>
+    <tr>
+        <td >API</td>
+        <td >Method</td>
+        <td style="width: 400px;">Description</td>
+        <td style="width: 700px;">JSON Body</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>/create</td>
+        <td>POST</td>
+        <td>Create a new user account</td>
+        <td>{ "accountUserName" : "john", "pin":"1234", "accountNumber":12345678 }</td>
+    </tr>
+    <tr>
+        <td>/init</td>
+        <td>POST</td>
+        <td>Add an initial balance to the account</td>
+        <td>{ "accountUserName" : "john", "pin":"1234", "amount":10000, "accountNumber":12345678 }</td>
+    </tr>
+    <tr>
+        <td>/deposit</td>
+        <td>POST</td>
+        <td>Deposit money to the account</td>
+        <td>{ "accountUserName" : "john", "pin":"1234", "amount":10000, "accountNumber":12345678 }</td>
+    </tr>
+    <tr>
+        <td>/withdraw</td>
+        <td>POST</td>
+        <td>Withdraw money from the account</td>
+        <td>{ "accountUserName" : "john", "pin":"1234", "amount":10000, "accountNumber":12345678 }</td>
+    </tr>
+    <tr>
+        <td>/balance</td>
+        <td>POST</td>
+        <td>Check current balance of the account</td>
+        <td>{ "accountUserName" : "john", "pin":"1234", "accountNumber":12345678 }</td>
+    </tr>
+    <tr>
+        <td>/users</td>
+        <td>GET</td>
+        <td>Get list of all users</td>
+        <td>NA</td>
+    </tr>
+    <tr>
+        <td>/accountscsv</td>
+        <td>GET</td>
+        <td>Get list of all accounts in a CSV format</td>
+        <td>NA</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+
+</html>
