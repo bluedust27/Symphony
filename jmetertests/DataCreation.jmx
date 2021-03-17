@@ -90,7 +90,7 @@
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">create</stringProp>
+            <stringProp name="HTTPSampler.path">banking/create</stringProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -110,7 +110,7 @@
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">accountscsv</stringProp>
+          <stringProp name="HTTPSampler.path">banking/accountscsv</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -138,8 +138,7 @@
           <stringProp name="filename"></stringProp>
           <stringProp name="cacheKey">true</stringProp>
           <stringProp name="script">def accounts = new File(&apos;accounts.csv&apos;)
-accounts &lt;&lt; vars.get(&apos;accounts&apos;)
-accounts &lt;&lt; System.getProperty(&apos;line.separator&apos;)</stringProp>
+accounts.write vars.get(&apos;accounts&apos;)</stringProp>
         </JSR223Sampler>
         <hashTree/>
       </hashTree>
