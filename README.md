@@ -1,6 +1,6 @@
 
 # A Simple Bank Application
-This project contains RESTful APIs to perform basic bank operations.
+This project contains RESTful APIs to perform basic bank operations. It also have jmeter tests to run a load test against the application.
 
 ## List of endpoints
 |      API     | Method |                Description               |                                        JSON Body                                       |
@@ -35,8 +35,6 @@ Below are ways to run the application on your local machine.
 	b. Run using mvn spring-boot:run
 
 The application will start running with default settings at: **http://localhost:8080**
-## Deploying on a AWS cloud instance
-TBD
 
 ## Testing
 Running load tests against this application using Jmeter.
