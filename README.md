@@ -62,6 +62,7 @@ Jmeter reports for each test can be found under : `\Reports\<Date>\graphs\index.
 ## Monitoring
 ### Set up
 [InfluxDB and Grafana setup](https://www.linkedin.com/pulse/jmeter-integration-grafanainfluxdb-real-time-monitoring-ashish-khole/?articleId=6667441580867235840)
+Copy the installation files for influxdb and grafana in the project root folder. Run SetupMonitoring.ps1 to setup both grafana and influx db.
 
 ### Realtime monitoring of Jmeter Tests
 #### Grafana Dashboard
