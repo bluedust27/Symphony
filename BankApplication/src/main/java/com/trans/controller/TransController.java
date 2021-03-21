@@ -43,7 +43,7 @@ public class TransController {
     public String addInitialBalance(@RequestBody Transaction transaction) {
         String message = "";
         try {
-            message = transService.initiallise(transaction);
+            message = transService.initialise(transaction);
         } catch (RuntimeException ex) {
             message = ex.getMessage();
         }

@@ -40,4 +40,12 @@ public class Transaction {
     private String pin;
     private double amount;
 
+    public Transaction(long accountNumber, String accountUserName, String pin, double amount){
+        this.accountNumber=accountNumber;
+        this.accountUserName=accountUserName;
+        this.pin=pin;
+        this.amount=amount;
+    }
+
+
 }

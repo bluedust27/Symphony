@@ -11,7 +11,6 @@ import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
@@ -24,7 +23,10 @@ public class TransService {
 
     @Autowired
     private AccountRepository accountRepository;
-
+    public TransService(UserRepository userRepository, AccountRepository accountRepository){
+        this.userRepository=userRepository;
+        this.accountRepository=accountRepository;
+    }
     public List<User> getUsers() {
         return (List<User>) userRepository.findAll();
     }
@@ -61,12 +63,17 @@ public class TransService {
     }
 
     public String withdraw(Transaction transaction) throws RuntimeException {
+        Account account = debitAccount(transaction);
+        return "Amount " + transaction.getAmount() + " is debited from account " + account.getAccountNumber() + " balance is " + account.getAmount();
+    }
+
+    protected Account debitAccount(Transaction transaction) throws RuntimeException{
         Account account = validateAccount(transaction);
         if (account.getAmount() > transaction.getAmount()) {
             account.setAmount(account.getAmount() - transaction.getAmount());
             accountRepository.save(account);
         } else throw new RuntimeException("withdrawal amount is greater than balance in account");
-        return "Amount " + transaction.getAmount() + " is debited from account " + account.getAccountNumber() + " balance is " + account.getAmount();
+        return account;
     }
 
     public String getBalance(Transaction transaction) throws RuntimeException {
@@ -75,24 +82,34 @@ public class TransService {
     }
 
     public String deposit(Transaction transaction) throws RuntimeException {
+        Account account= creditAccount(transaction);
+        return "Amount " + transaction.getAmount() + " is deposited in account " + account.getAccountNumber() + " balance is " + account.getAmount();
+    }
+
+    protected Account creditAccount(Transaction transaction) {
         Account account = validateAccount(transaction);
         if (transaction.getAmount() > 0) {
             account.setAmount(account.getAmount() + transaction.getAmount());
             accountRepository.save(account);
-            return "Amount " + transaction.getAmount() + " is deposited in account " + account.getAccountNumber() + " balance is " + account.getAmount();
         } else throw new RuntimeException("Invalid Amount");
+        return account;
     }
 
-    public String initiallise(Transaction transaction) throws RuntimeException {
+    public String initialise(Transaction transaction) throws RuntimeException {
+        Account account = creditInitialAmount(transaction);
+        return "Amount " + transaction.getAmount() + " is deposited in account " + account.getAccountNumber() + " balance is " + account.getAmount();
+    }
+
+    protected Account creditInitialAmount(Transaction transaction) {
         Account account = validateAccount(transaction);
         if (transaction.getAmount() > 5000) {
             account.setAmount(transaction.getAmount());
             accountRepository.save(account);
         } else throw new RuntimeException("Minimum amount to be added is 5000");
-        return "Amount " + transaction.getAmount() + " is deposited in account " + account.getAccountNumber() + " balance is " + account.getAmount();
+        return account;
     }
 
-    private Account validateAccount(Transaction transaction) throws RuntimeException {
+    protected Account validateAccount(Transaction transaction) throws RuntimeException {
         Optional<Account> accountOptional = accountRepository.findById(transaction.getAccountNumber());
         if (accountOptional.isPresent()) {
             Account account = accountOptional.get();
@@ -103,7 +120,7 @@ public class TransService {
         } else throw new RuntimeException("Account does not exist");
     }
 
-    private void validateDuplicateAccount(Transaction transaction) throws RuntimeException{
+    protected void validateDuplicateAccount(Transaction transaction) throws RuntimeException{
         Optional<Account> accountOptional = accountRepository.findById(transaction.getAccountNumber());
         if (accountOptional.isPresent()){
             throw new RuntimeException(("Account already exists"));
